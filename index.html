@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Bot Loader - Ryzen 128 Core Mock</title>
+<style>
+  body { background:#0b1020; color:#e6eef8; font-family: Inter, system-ui, sans-serif; display:flex; align-items:center; justify-content:center; height:100vh; margin:0;}
+  .card { width:900px; background:linear-gradient(180deg,#07102a, #07172e); border-radius:12px; padding:28px; box-shadow:0 10px 30px rgba(0,0,0,0.6); }
+  h1 { margin:0 0 12px 0; font-size:26px;}
+  .specs { display:flex; gap:16px; margin-bottom:12px;}
+  .bar { height:28px; background:#0f1a2b; border-radius:8px; overflow:hidden; position:relative; border:1px solid rgba(255,255,255,0.03);}
+  .bar-fill { height:100%; width:0%; background:linear-gradient(90deg,#66f,#4af); transition: width 600ms cubic-bezier(.2,.8,.2,1); }
+  .tiny { font-size:13px; color:#9fb3d9; }
+  .stats { display:flex; gap:12px; margin-top:10px; flex-wrap:wrap;}
+  .stat { background:rgba(255,255,255,0.02); padding:8px 12px; border-radius:8px; font-size:13px; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>Bot Build • Fake System Loader</h1>
+    <div class="specs">
+      <div style="flex:1">
+        <div class="tiny">CPU</div>
+        <div class="bar" style="margin-top:6px">
+          <div class="bar-fill" id="cpuFill" style="width:0%"></div>
+        </div>
+        <div class="tiny" id="cpuTxt">Ryzen • 128 cores • 0%</div>
+      </div>
+      <div style="flex:1">
+        <div class="tiny">Memory</div>
+        <div class="bar" style="margin-top:6px">
+          <div class="bar-fill" id="memFill" style="width:0%"></div>
+        </div>
+        <div class="tiny" id="memTxt">16 GB used • 0%</div>
+      </div>
+    </div>
+
+    <div class="stats" style="margin-top:18px">
+      <div class="stat">Node: v18+</div>
+      <div class="stat">discord.js: v14</div>
+      <div class="stat">erela.js: ready</div>
+      <div class="stat">YTDL: enabled</div>
+      <div class="stat">Modules installed: <span id="mods">0</span></div>
+    </div>
+
+    <p class="tiny" style="margin-top:18px">This is a mock loading bar for show — copy the files into your bot project and run <code>node index.js</code> after placing your token in <code>.env</code>.</p>
+  </div>
+
+<script>
+  // Animated fake values
+  let cpu = 0, mem = 0, mods = 0;
+  function tick() {
+    cpu = Math.min(100, cpu + Math.random()*10);
+    mem = Math.min(100, mem + Math.random()*8);
+    mods = Math.min(99, mods + Math.floor(Math.random()*6));
+    document.getElementById('cpuFill').style.width = cpu + '%';
+    document.getElementById('memFill').style.width = mem + '%';
+    document.getElementById('cpuTxt').textContent = 'Ryzen • 128 cores • ' + Math.round(cpu) + '%';
+    document.getElementById('memTxt').textContent = '16 GB used • ' + Math.round(mem) + '%';
+    document.getElementById('mods').textContent = mods;
+    if (cpu < 99) setTimeout(tick, 500 + Math.random()*900);
+  }
+  tick();
+</script>
+</body>
+</html>
